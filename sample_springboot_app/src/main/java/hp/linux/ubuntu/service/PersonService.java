@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -60,5 +61,14 @@ public class PersonService {
 		newPerson.setId(maxId);
 		personMap.put(newPerson.getId(), newPerson);
 		return newPerson;
+	}
+	
+	@PutMapping
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public Person updatePerson(@RequestBody Person newPersonDetails) {
+		personMap.remove(newPersonDetails.getId());
+		personMap.put(newPersonDetails.getId(), newPersonDetails);
+		return personMap.get(newPersonDetails.getId());
+		
 	}
 }

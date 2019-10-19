@@ -31,7 +31,7 @@ public class MountClassTest {
 	
 	private String updatePersonAsUri(Person person) {
         Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).put(API_ROOT);
-        assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
+        assertEquals(HttpStatus.ACCEPTED.value(), response.getStatusCode());
         return API_ROOT + "/" + response.jsonPath().get("id");
     }
 	

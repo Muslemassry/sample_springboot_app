@@ -26,6 +26,7 @@ public class MountClassTest {
 	private String createPersonAsUri(Person person) {
         Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).post(API_ROOT);
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
+        
         return API_ROOT + "/" + response.jsonPath().get("id");
     }
 	

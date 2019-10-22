@@ -27,6 +27,7 @@ public class MountClassTest {
         Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).post(API_ROOT);
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
         
+	System.out.println("To pull");
         return API_ROOT + "/" + response.jsonPath().get("id");
     }
 	

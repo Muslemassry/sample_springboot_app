@@ -50,7 +50,7 @@ public class MountClassTest {
 		Response response = 
 	        	RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).get(updatePersonAsUri(p));
 		assertEquals(HttpStatus.OK.value(), response.getStatusCode());
-		System.out.println("hello");
+		System.out.println("ay 7aga ya usta");
 		assertTrue(response.as(List.class).size() > 0);
 	}
 }

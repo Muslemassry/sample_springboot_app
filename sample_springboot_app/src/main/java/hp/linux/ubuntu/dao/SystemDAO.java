@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +31,8 @@ public class SystemDAO {
 	}
 	
 	
-//	@Autowired
-	private Session session;
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	public List<Person> getPerson(Integer id) {
 		List personList = new ArrayList();

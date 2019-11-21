@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,60 +16,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import hp.linux.ubuntu.components.SystemComponent;
 import hp.linux.ubuntu.model.Person;
 
 @RestController
 @RequestMapping("/person")
 public class PersonService {
-	private static Map<Integer, Person> personMap;
 	
-	static {
-		personMap = new HashMap<Integer, Person>();
-		Person tempPerson = new Person(1, "Ahmed", 21, "Alex");
-		personMap.put(tempPerson.getId(), tempPerson);
-		tempPerson = new Person(2, "Badawi", 22, "Beheyra");
-		personMap.put(tempPerson.getId(), tempPerson);
-		tempPerson = new Person(3, "Camal", 23, "Cairo");
-		personMap.put(tempPerson.getId(), tempPerson);
-		tempPerson = new Person(4, "Dawood", 24, "Damanhour");
-		personMap.put(tempPerson.getId(), tempPerson);
-	}
+	@Autowired
+	private SystemComponent systemComponent;
 	
 	@GetMapping("/{id}")
 	public List<Person> getPerson(@PathVariable Integer id) {
-		List personList = new ArrayList();
-		personList.add(personMap.get(id));
-		return personList;
+		return systemComponent.getPerson(id);
 	}
 	
 	@GetMapping("/")
 	public List<Person> getAllPersons() {
-		List personList = new ArrayList(personMap.values());
-		return personList;
+		return systemComponent.getAllPersons();
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Person addNewPerson(@RequestBody Person newPerson) {
-		Integer maxId = null;
-		if (personMap.size() == 0) {
-			maxId = 1;
-		} else {
-			maxId =  personMap.keySet().stream().mapToInt(v -> v).max().getAsInt();
-			++maxId;
-		}		
-		
-		newPerson.setId(maxId);
-		personMap.put(newPerson.getId(), newPerson);
-		return newPerson;
+		return systemComponent.addNewPerson(newPerson);
 	}
 	
 	@PutMapping
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public Person updatePerson(@RequestBody Person newPersonDetails) {
-		personMap.remove(newPersonDetails.getId());
-		personMap.put(newPersonDetails.getId(), newPersonDetails);
-		return personMap.get(newPersonDetails.getId());
-		
+		return systemComponent.updatePerson(newPersonDetails);		
 	}
 }

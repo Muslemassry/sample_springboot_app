@@ -27,17 +27,11 @@ public class MountClassTest {
 	private String createPersonAsUri(Person person) {
         Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).post(API_ROOT);
         assertEquals(HttpStatus.CREATED.value(), response.getStatusCode());
-<<<<<<< HEAD
-        System.out.println("ahmed");
-=======
-        
-	System.out.println("To pull");
->>>>>>> branch 'master' of https://github.com/Muslemassry/sample_springboot_app.git
         return API_ROOT + "/" + response.jsonPath().get("id");
     }
 	
 	private String updatePersonAsUri(Person person) {
-        Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).put(API_ROOT);
+		Response response = RestAssured.given().contentType(MediaType.APPLICATION_JSON_VALUE).body(person).put(API_ROOT);
         assertEquals(HttpStatus.ACCEPTED.value(), response.getStatusCode());
         return API_ROOT + "/" + response.jsonPath().get("id");
     }
